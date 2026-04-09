@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Мае финансы">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#090909">
+<title>Мае финансы</title>
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="photo-design.css">
+</head>
+<body>
+<div id="workspace">
+  <div id="app">
+    <div id="screen"></div>
+    <nav id="main-nav">
+      <button class="nav-btn active" id="nav-home" onclick="showPage('home')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 10.5L12 3l9 7.5"></path>
+          <path d="M5 9.5V21h14V9.5"></path>
+        </svg>
+        <span class="nav-label" id="nav-label-home"></span>
+      </button>
+      <button class="nav-btn" id="nav-history" onclick="showPage('history')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 8v5l4 2"></path>
+          <path d="M3.5 12a8.5 8.5 0 1 0 2.49-6.01"></path>
+          <path d="M3 4v4h4"></path>
+        </svg>
+        <span class="nav-label" id="nav-label-history"></span>
+      </button>
+      <button class="nav-btn nav-btn-add" id="nav-add" onclick="startCreateTx()">
+        <span class="nav-plus">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6">
+            <path d="M12 5v14"></path>
+            <path d="M5 12h14"></path>
+          </svg>
+        </span>
+        <span class="nav-label" id="nav-label-add"></span>
+      </button>
+      <button class="nav-btn" id="nav-goals" onclick="showPage('goals')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="8"></circle>
+          <path d="M12 8v4l3 3"></path>
+        </svg>
+        <span class="nav-label" id="nav-label-goals"></span>
+      </button>
+      <button class="nav-btn" id="nav-settings" onclick="showPage('settings')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.05.06a2 2 0 0 1-2.83 2.83l-.06-.05a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.05a2 2 0 1 1-2.83-2.83l.05-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.05-.06a2 2 0 1 1 2.83-2.83l.06.05A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.05a2 2 0 1 1 2.83 2.83l-.05.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span class="nav-label" id="nav-label-settings"></span>
+      </button>
+    </nav>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<div id="overlay-root"></div>
+<input type="file" id="import-input" accept="application/json" hidden onchange="handleImport(event)">
+<script src="app.js"></script>
+<script src="app-overrides.js"></script>
+<script src="photo-design.js"></script>
+<script>
+if ("serviceWorker" in navigator && location.protocol !== "file:") {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("./service-worker.js").catch(function (error) {
+      console.error("Service worker registration failed", error);
+    });
+  });
+}
+</script>
+</body>
+</html>
